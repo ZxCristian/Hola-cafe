@@ -30,13 +30,16 @@ function MainApp() {
     : menuItems.filter(item => item.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-cream-50 font-inter">
+    <div className="min-h-screen bg-hola-offwhite font-futura">
       <Header 
         cartItemsCount={cart.getTotalItems()}
         onCartClick={() => handleViewChange('cart')}
         onMenuClick={() => handleViewChange('menu')}
       />
-      <SubNav selectedCategory={selectedCategory} onCategoryClick={handleCategoryClick} />
+      {/* SubNav is hidden on mobile, MobileNav is shown instead in Menu.tsx */}
+      <div className="hidden md:block">
+        <SubNav selectedCategory={selectedCategory} onCategoryClick={handleCategoryClick} />
+      </div>
       
       {currentView === 'menu' && (
         <Menu 

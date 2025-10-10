@@ -8,10 +8,11 @@ import ImageUpload from './ImageUpload';
 import CategoryManager from './CategoryManager';
 import PaymentMethodManager from './PaymentMethodManager';
 import SiteSettingsManager from './SiteSettingsManager';
+import HolaLogo from './HolaLogo';
 
 const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('beracah_admin_auth') === 'true';
+    return localStorage.getItem('hola_admin_auth') === 'true';
   });
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -232,9 +233,9 @@ const AdminDashboard: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'ClickEats@Admin!2025') {
+    if (password === 'HOLACafe@Admin!2025') {
       setIsAuthenticated(true);
-      localStorage.setItem('beracah_admin_auth', 'true');
+      localStorage.setItem('hola_admin_auth', 'true');
       setLoginError('');
     } else {
       setLoginError('Invalid password');
@@ -243,7 +244,7 @@ const AdminDashboard: React.FC = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('beracah_admin_auth');
+    localStorage.removeItem('hola_admin_auth');
     setPassword('');
     setCurrentView('dashboard');
   };
@@ -254,32 +255,32 @@ const AdminDashboard: React.FC = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-4">
+            <div className="mx-auto w-16 h-16 bg-hola-black rounded-full flex items-center justify-center mb-4">
               <Lock className="h-8 w-8 text-white" />
             </div>
-            <h1 className="text-2xl font-playfair font-semibold text-black">Admin Access</h1>
-            <p className="text-gray-600 mt-2">Enter password to access the admin dashboard</p>
+            <h1 className="text-2xl font-futura-bold font-bold text-hola-black">Admin Access</h1>
+            <p className="text-hola-gray mt-2 font-futura">Enter password to access the admin dashboard</p>
           </div>
           
           <form onSubmit={handleLogin}>
             <div className="mb-6">
-              <label className="block text-sm font-medium text-black mb-2">Password</label>
+              <label className="block text-sm font-futura-bold font-bold text-hola-black mb-2">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                className="w-full px-4 py-3 border border-hola-lightgray rounded-lg focus:ring-2 focus:ring-hola-black focus:border-transparent font-futura"
                 placeholder="Enter admin password"
                 required
               />
               {loginError && (
-                <p className="text-red-500 text-sm mt-2">{loginError}</p>
+                <p className="text-hola-gray text-sm mt-2 font-futura">{loginError}</p>
               )}
             </div>
             
             <button
               type="submit"
-              className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium"
+              className="w-full bg-hola-black text-white py-3 rounded-lg hover:bg-hola-gray transition-colors duration-200 font-futura-bold"
             >
               Access Dashboard
             </button>
@@ -933,19 +934,19 @@ const AdminDashboard: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Coffee className="h-8 w-8 text-black" />
-              <h1 className="text-2xl font-noto font-semibold text-black">ClickEats Admin</h1>
+              <HolaLogo size="sm" showTagline={false} />
+              <span className="text-lg font-futura-bold font-bold text-hola-gray">Admin</span>
             </div>
             <div className="flex items-center space-x-4">
               <a
                 href="/"
-                className="text-gray-600 hover:text-black transition-colors duration-200"
+                className="text-hola-gray hover:text-hola-black transition-colors duration-200 font-futura"
               >
                 View Website
               </a>
               <button
                 onClick={handleLogout}
-                className="text-gray-600 hover:text-black transition-colors duration-200"
+                className="text-hola-gray hover:text-hola-black transition-colors duration-200 font-futura"
               >
                 Logout
               </button>

@@ -91,12 +91,11 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems, updateQuan
         activeCategory={activeCategory}
         onCategoryClick={handleCategoryClick}
       />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-noto font-semibold text-black mb-4">Our Menu</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Discover our selection of authentic dim sum, flavorful noodles, and traditional Asian dishes, 
-          all prepared with fresh ingredients and authentic techniques.
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="text-center mb-8 sm:mb-12">
+        <h2 className="text-3xl sm:text-4xl font-futura-bold font-bold text-hola-black mb-3 sm:mb-4">Our Menu</h2>
+        <p className="text-sm sm:text-base md:text-lg text-hola-gray max-w-2xl mx-auto font-futura leading-relaxed px-2">
+          Welcome to <span className="font-futura-bold text-hola-black">HOLA Café</span>, your go-to spot for a taste of everything delicious! Whether you're craving a budget-friendly treat from our <span className="font-futura-bold">₱38 Milktea</span> or <span className="font-futura-bold">₱38 Coffee</span> menus, or you want to indulge in a luxurious <span className="font-futura-bold">Premium Milktea</span> like the Brown Sugar or Matcha, we've got your perfect sip. Pair your drink with a delightful slice of our <span className="font-futura-bold">Cardinal Cakes</span> - from the classic Ube Cake to the decadent Red Velvet Cake. We're ready to serve you a happy moment, whether it's a creamy Frappe or a delicious piece of cake!
         </p>
       </div>
 
@@ -106,13 +105,13 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems, updateQuan
         if (categoryItems.length === 0) return null;
         
         return (
-          <section key={category.id} id={category.id} className="mb-16">
-            <div className="flex items-center mb-8">
-              <span className="text-3xl mr-3">{category.icon}</span>
-              <h3 className="text-3xl font-noto font-medium text-black">{category.name}</h3>
+          <section key={category.id} id={category.id} className="mb-12 sm:mb-16">
+            <div className="flex items-center mb-6 sm:mb-8 px-1">
+              <span className="text-2xl sm:text-3xl mr-2 sm:mr-3">{category.icon}</span>
+              <h3 className="text-2xl sm:text-3xl font-futura-bold font-bold text-hola-black">{category.name}</h3>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {categoryItems.map((item) => {
                 const cartItem = cartItems.find(cartItem => cartItem.id === item.id);
                 return (

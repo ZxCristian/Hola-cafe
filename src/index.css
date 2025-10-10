@@ -1,15 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Futura+PT:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Ramen Yard Custom Styles */
-/* Minimal helpers for ramen palette when needed outside tailwind tokens */
-.bg-ramen-cream { background-color: #FFF3E0; }
-.bg-ramen-beige { background-color: #F7E7CE; }
-.text-ramen-red { color: #D7263D; }
-.text-ramen-dark { color: #0B0A0A; }
-.border-ramen-sesame { border-color: #D1C7B7; }
-.ring-ramen-gold { --tw-ring-color: #E0A106; }
+/* HOLA Cafe Custom Styles */
+/* Minimal helpers for HOLA palette when needed outside tailwind tokens */
+.bg-hola-offwhite { background-color: #FAFAFA; }
+.bg-hola-cream { background-color: #F5F5F5; }
+.text-hola-black { color: #000000; }
+.text-hola-gray { color: #666666; }
+.border-hola-lightgray { border-color: #E5E5E5; }
+.ring-hola-black { --tw-ring-color: #000000; }
+
+/* Mobile Optimization */
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  -webkit-touch-callout: none;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  touch-action: manipulation;
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 640px) {
+  button, a {
+    min-height: 44px;
+  }
+}
+
+/* Smooth scrolling with snap points */
+.snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
 
 /* Hide scrollbar for mobile nav */
 .scrollbar-hide {
@@ -35,4 +66,15 @@ img {
   top: -9999px;
   width: 1px;
   height: 1px;
+}
+
+/* Improve mobile text readability */
+@media (max-width: 640px) {
+  body {
+    font-size: 16px; /* Prevents iOS zoom on input focus */
+  }
+  
+  input, textarea, select {
+    font-size: 16px; /* Prevents iOS zoom */
+  }
 }

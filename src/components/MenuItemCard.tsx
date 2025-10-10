@@ -93,7 +93,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
   return (
     <>
-      <div className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group animate-scale-in border border-gray-100 ${!item.available ? 'opacity-60' : ''}`}>
+      <div className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group animate-scale-in border border-hola-lightgray ${!item.available ? 'opacity-60' : ''}`}>
         {/* Image Container with Badges */}
         <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100">
           {item.image ? (
@@ -116,26 +116,26 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-2">
             {item.isOnDiscount && item.discountPrice && (
-              <div className="bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
+              <div className="bg-hola-black text-white text-xs font-futura-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
                 SALE
               </div>
             )}
             {item.popular && (
-              <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+              <div className="bg-hola-black text-white text-xs font-futura-bold px-3 py-1.5 rounded-full shadow-lg">
                 ⭐ POPULAR
               </div>
             )}
           </div>
           
           {!item.available && (
-            <div className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+            <div className="absolute top-3 right-3 bg-hola-gray text-white text-xs font-futura-bold px-3 py-1.5 rounded-full shadow-lg">
               UNAVAILABLE
             </div>
           )}
           
           {/* Discount Percentage Badge */}
           {item.isOnDiscount && item.discountPrice && (
-            <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm text-red-600 text-xs font-bold px-2 py-1 rounded-full shadow-lg">
+            <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm text-hola-black text-xs font-futura-bold px-2 py-1 rounded-full shadow-lg">
               {Math.round(((item.basePrice - item.discountPrice) / item.basePrice) * 100)}% OFF
             </div>
           )}
@@ -144,15 +144,15 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
         {/* Content */}
         <div className="p-5">
           <div className="flex items-start justify-between mb-3">
-            <h4 className="text-lg font-semibold text-gray-900 leading-tight flex-1 pr-2">{item.name}</h4>
+            <h4 className="text-lg font-futura-bold font-bold text-hola-black leading-tight flex-1 pr-2">{item.name}</h4>
             {item.variations && item.variations.length > 0 && (
-              <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full whitespace-nowrap">
+              <div className="text-xs text-hola-gray bg-hola-cream px-2 py-1 rounded-full whitespace-nowrap font-futura">
                 {item.variations.length} sizes
               </div>
             )}
           </div>
           
-          <p className={`text-sm mb-4 leading-relaxed ${!item.available ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`text-sm mb-4 leading-relaxed font-futura ${!item.available ? 'text-hola-gray' : 'text-hola-gray'}`}>
             {!item.available ? 'Currently Unavailable' : item.description}
           </p>
           
@@ -162,25 +162,25 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
               {item.isOnDiscount && item.discountPrice ? (
                 <div className="space-y-1">
                   <div className="flex items-center space-x-2">
-                    <span className="text-2xl font-bold text-red-600">
+                    <span className="text-2xl font-futura-bold font-bold text-hola-black">
                       ₱{item.discountPrice.toFixed(2)}
                     </span>
-                    <span className="text-sm text-gray-500 line-through">
+                    <span className="text-sm text-hola-gray line-through font-futura">
                       ₱{item.basePrice.toFixed(2)}
                     </span>
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-hola-gray font-futura">
                     Save ₱{(item.basePrice - item.discountPrice).toFixed(2)}
                   </div>
                 </div>
               ) : (
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-futura-bold font-bold text-hola-black">
                   ₱{item.basePrice.toFixed(2)}
                 </div>
               )}
               
               {item.variations && item.variations.length > 0 && (
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-hola-gray mt-1 font-futura">
                   Starting price
                 </div>
               )}
@@ -191,31 +191,31 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
               {!item.available ? (
                 <button
                   disabled
-                  className="bg-gray-200 text-gray-500 px-4 py-2.5 rounded-xl cursor-not-allowed font-medium text-sm"
+                  className="bg-hola-lightgray text-hola-gray px-4 py-2.5 rounded-xl cursor-not-allowed font-futura-bold text-sm"
                 >
                   Unavailable
                 </button>
               ) : quantity === 0 ? (
                 <button
                   onClick={handleAddToCart}
-                  className="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-2.5 rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-200 transform hover:scale-105 font-medium text-sm shadow-lg hover:shadow-xl"
+                  className="bg-hola-black text-white px-6 py-2.5 rounded-xl hover:bg-hola-gray transition-all duration-200 transform hover:scale-105 font-futura-bold text-sm shadow-lg hover:shadow-xl"
                 >
                   {item.variations?.length || item.addOns?.length ? 'Customize' : 'Add to Cart'}
                 </button>
               ) : (
-                <div className="flex items-center space-x-2 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-1 border border-yellow-200">
+                <div className="flex items-center space-x-2 bg-hola-cream rounded-xl p-1 border border-hola-lightgray">
                   <button
                     onClick={handleDecrement}
-                    className="p-2 hover:bg-yellow-200 rounded-lg transition-colors duration-200 hover:scale-110"
+                    className="p-2 hover:bg-hola-lightgray rounded-lg transition-colors duration-200 hover:scale-110"
                   >
-                    <Minus className="h-4 w-4 text-gray-700" />
+                    <Minus className="h-4 w-4 text-hola-black" />
                   </button>
-                  <span className="font-bold text-gray-900 min-w-[28px] text-center text-sm">{quantity}</span>
+                  <span className="font-futura-bold font-bold text-hola-black min-w-[28px] text-center text-sm">{quantity}</span>
                   <button
                     onClick={handleIncrement}
-                    className="p-2 hover:bg-yellow-200 rounded-lg transition-colors duration-200 hover:scale-110"
+                    className="p-2 hover:bg-hola-lightgray rounded-lg transition-colors duration-200 hover:scale-110"
                   >
-                    <Plus className="h-4 w-4 text-gray-700" />
+                    <Plus className="h-4 w-4 text-hola-black" />
                   </button>
                 </div>
               )}
@@ -224,7 +224,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
           {/* Add-ons indicator */}
           {item.addOns && item.addOns.length > 0 && (
-            <div className="flex items-center space-x-1 text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-lg">
+            <div className="flex items-center space-x-1 text-xs text-hola-gray bg-hola-cream px-2 py-1 rounded-lg font-futura">
               <span>+</span>
               <span>{item.addOns.length} add-on{item.addOns.length > 1 ? 's' : ''} available</span>
             </div>

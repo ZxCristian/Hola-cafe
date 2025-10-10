@@ -14,6 +14,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
   const [step, setStep] = useState<'details' | 'payment'>('details');
   const [customerName, setCustomerName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
+  const [contactError, setContactError] = useState('');
   const [serviceType, setServiceType] = useState<ServiceType>('dine-in');
   const [address, setAddress] = useState('');
   const [landmark, setLandmark] = useState('');
@@ -25,6 +26,55 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('gcash');
   const [referenceNumber, setReferenceNumber] = useState('');
   const [notes, setNotes] = useState('');
+
+  // Get current datetime in local timezone for min attribute
+  const getMinDateTime = () => {
+    const now = new Date();
+    // Format: YYYY-MM-DDTHH:MM
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  // Validate Philippine phone number
+  const validatePhoneNumber = (value: string): boolean => {
+    // Remove spaces, dashes, and parentheses for validation
+    const cleanNumber = value.replace(/[\s\-()]/g, '');
+    
+    // Philippine phone number patterns:
+    // 09XXXXXXXXX (11 digits starting with 09)
+    // 639XXXXXXXXX (12 digits starting with 639)
+    // +639XXXXXXXXX (13 characters starting with +639)
+    const patterns = [
+      /^09\d{9}$/,           // 09XXXXXXXXX
+      /^639\d{9}$/,          // 639XXXXXXXXX
+      /^\+639\d{9}$/,        // +639XXXXXXXXX
+      /^9\d{9}$/,            // 9XXXXXXXXX (without leading 0)
+    ];
+    
+    return patterns.some(pattern => pattern.test(cleanNumber));
+  };
+
+  // Handle contact number input
+  const handleContactNumberChange = (value: string) => {
+    // Only allow numbers, spaces, dashes, parentheses, and plus sign
+    const sanitized = value.replace(/[^\d\s\-()+ ]/g, '');
+    setContactNumber(sanitized);
+    
+    // Validate if there's input
+    if (sanitized.trim()) {
+      if (validatePhoneNumber(sanitized)) {
+        setContactError('');
+      } else {
+        setContactError('Please enter a valid Philippine phone number (e.g., 09XX XXX XXXX)');
+      }
+    } else {
+      setContactError('');
+    }
+  };
 
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -60,7 +110,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
       : '';
     
     const orderDetails = `
-🛒 ClickEats ORDER
+🛒 Hola Café ORDER
 
 👤 Customer: ${customerName}
 📞 Contact: ${contactNumber}
@@ -95,20 +145,20 @@ ${serviceType === 'delivery' ? `🛵 DELIVERY FEE:` : ''}
 
 ${notes ? `📝 Notes: ${notes}` : ''}
 
-Please confirm this order to proceed. Thank you for choosing ClickEats! 🥟
+Please confirm this order to proceed. Thank you for choosing Hola Café! 
     `.trim();
 
     const encodedMessage = encodeURIComponent(orderDetails);
-    const messengerUrl = `https://m.me/61579693577478?text=${encodedMessage}`;
+    const messengerUrl = `https://m.me/HolaCafePH?text=${encodedMessage}`;
     
     window.open(messengerUrl, '_blank');
     
   };
 
-  const isDetailsValid = customerName && contactNumber && 
+  const isDetailsValid = customerName && contactNumber && !contactError && validatePhoneNumber(contactNumber) &&
     (serviceType !== 'delivery' || address) && 
     (serviceType !== 'pickup' || (pickupTime !== 'custom' || customTime)) &&
-    (serviceType !== 'dine-in' || (partySize > 0 && dineInTime));
+    (serviceType !== 'dine-in' || (partySize > 0 && dineInTime && new Date(dineInTime) > new Date()));
 
   if (step === 'details') {
     return (
@@ -180,11 +230,27 @@ Please confirm this order to proceed. Thank you for choosing ClickEats! 🥟
                 <input
                   type="tel"
                   value={contactNumber}
-                  onChange={(e) => setContactNumber(e.target.value)}
-                  className="w-full px-4 py-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
+                  onChange={(e) => handleContactNumberChange(e.target.value)}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-all duration-200 ${
+                    contactError 
+                      ? 'border-red-500 focus:ring-red-500' 
+                      : 'border-red-300 focus:ring-red-500'
+                  }`}
                   placeholder="09XX XXX XXXX"
                   required
                 />
+                {contactError && (
+                  <p className="text-xs text-red-600 mt-1 flex items-center">
+                    <span className="mr-1">⚠️</span>
+                    {contactError}
+                  </p>
+                )}
+                {!contactError && contactNumber && (
+                  <p className="text-xs text-green-600 mt-1 flex items-center">
+                    <span className="mr-1">✓</span>
+                    Valid phone number
+                  </p>
+                )}
               </div>
 
               {/* Service Type */}
@@ -244,10 +310,11 @@ Please confirm this order to proceed. Thank you for choosing ClickEats! 🥟
                       type="datetime-local"
                       value={dineInTime}
                       onChange={(e) => setDineInTime(e.target.value)}
+                      min={getMinDateTime()}
                       className="w-full px-4 py-3 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200"
                       required
                     />
-                    <p className="text-xs text-gray-500 mt-1">Please select your preferred dining time</p>
+                    <p className="text-xs text-gray-500 mt-1">Please select your preferred dining time (must be in the future)</p>
                   </div>
                 </>
               )}
