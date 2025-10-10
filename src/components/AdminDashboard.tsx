@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, Save, X, ArrowLeft, Coffee, TrendingUp, Package, Users, Lock, FolderOpen, CreditCard, Settings } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, ArrowLeft, Coffee, TrendingUp, Package, Users, Lock, FolderOpen, CreditCard, Settings, Star } from 'lucide-react';
 import { MenuItem, Variation, AddOn } from '../types';
 import { addOnCategories } from '../data/menuData';
 import { useMenu } from '../hooks/useMenu';
@@ -758,7 +758,8 @@ const AdminDashboard: React.FC = () => {
                       <td className="px-6 py-4">
                         <div className="flex flex-col space-y-1">
                           {item.popular && (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white">
+                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white">
+                              <Star className="h-3 w-3 fill-white" />
                               Popular
                             </span>
                           )}
@@ -867,7 +868,8 @@ const AdminDashboard: React.FC = () => {
                   <div className="flex items-center justify-between mt-3">
                     <div className="flex items-center space-x-2">
                       {item.popular && (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white">
+                          <Star className="h-3 w-3 fill-white" />
                           Popular
                         </span>
                       )}
@@ -984,8 +986,8 @@ const AdminDashboard: React.FC = () => {
 
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-cream-500 rounded-lg">
-                <Coffee className="h-6 w-6 text-white" />
+              <div className="p-2 bg-green-600 rounded-lg">
+                <Star className="h-6 w-6 text-white fill-white" />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Popular Items</p>
