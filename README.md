@@ -10,8 +10,7 @@ This project is built with a modern and responsive web development stack:
 - **Frontend Framework:** React (via Vite for optimized build performance)
 - **Language:** TypeScript / JavaScript
 - **Styling:** Tailwind CSS
-- **Deployment:** Vercel / Netlify ---
-
+- **Deployment:** Vercel
 ## ✨ Main Features
 
 - **Interactive Menu:** Beautifully displayed categories for coffee, pastries, and seasonal specials.
